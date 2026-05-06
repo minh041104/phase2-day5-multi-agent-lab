@@ -22,7 +22,7 @@ File gợi ý:
 - `src/multi_agent_research_lab/cli.py`
 - `src/multi_agent_research_lab/services/llm_client.py`
 
-TODO(student): thay baseline placeholder bằng một call LLM thật.
+Implementation: baseline hiện dùng Tavily để lấy nguồn và OpenAI Responses API để viết câu trả lời single-agent.
 
 ## Milestone 2: Supervisor
 
@@ -31,7 +31,7 @@ File gợi ý:
 - `src/multi_agent_research_lab/agents/supervisor.py`
 - `src/multi_agent_research_lab/graph/workflow.py`
 
-TODO(student): implement routing policy.
+Implementation: Supervisor route theo field còn thiếu trong `ResearchState` và dừng bằng `max_iterations`.
 
 Gợi ý câu hỏi thiết kế:
 
@@ -49,7 +49,7 @@ File gợi ý:
 - `agents/analyst.py`
 - `agents/writer.py`
 
-TODO(student): implement từng worker.
+Implementation: Researcher lấy nguồn và research notes, Analyst tạo structured analysis, Writer viết final answer có citation.
 
 ## Milestone 4: Trace và benchmark
 

@@ -4,14 +4,35 @@ from multi_agent_research_lab.core.schemas import BenchmarkMetrics
 
 
 def render_markdown_report(metrics: list[BenchmarkMetrics]) -> str:
-    """Render benchmark metrics to markdown.
+    """Render benchmark metrics to markdown."""
 
-    TODO(student): Add richer analysis, examples, screenshots, and trace links.
-    """
-
-    lines = ["# Benchmark Report", "", "| Run | Latency (s) | Cost (USD) | Quality | Notes |", "|---|---:|---:|---:|---|"]
+    lines = [
+        "# Benchmark Report",
+        "",
+        "| Run | Latency (s) | Cost (USD) | Quality | Citation Coverage | "
+        "Failure Rate | Trace Events | Notes |",
+        "|---|---:|---:|---:|---:|---:|---:|---|",
+    ]
     for item in metrics:
         cost = "" if item.estimated_cost_usd is None else f"{item.estimated_cost_usd:.4f}"
         quality = "" if item.quality_score is None else f"{item.quality_score:.1f}"
-        lines.append(f"| {item.run_name} | {item.latency_seconds:.2f} | {cost} | {quality} | {item.notes} |")
+        citation = "" if item.citation_coverage is None else f"{item.citation_coverage:.0%}"
+        failure = "" if item.failure_rate is None else f"{item.failure_rate:.0%}"
+        notes = item.notes.replace("|", "\\|")
+        lines.append(
+            f"| {item.run_name} | {item.latency_seconds:.2f} | {cost} | {quality} | "
+            f"{citation} | {failure} | {item.trace_events} | {notes} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Notes",
+            "",
+            "- Quality is a heuristic starter score; keep the peer-review rubric as "
+            "the final human assessment.",
+            "- Citation coverage estimates how many substantial final-answer sentences "
+            "include bracketed source references.",
+            "- Failure rate is 100% for a failed query run and 0% otherwise.",
+        ]
+    )
     return "\n".join(lines) + "\n"

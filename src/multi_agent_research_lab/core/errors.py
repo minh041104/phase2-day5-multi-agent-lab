@@ -5,8 +5,12 @@ class LabError(Exception):
     """Base error for the lab package."""
 
 
-class StudentTodoError(LabError):
-    """Raised where learners are expected to implement core logic."""
+class ConfigurationError(LabError):
+    """Raised when required runtime configuration is missing or invalid."""
+
+
+class ExternalServiceError(LabError):
+    """Raised when a provider SDK or external API call fails."""
 
 
 class AgentExecutionError(LabError):
